@@ -5,7 +5,6 @@ return {
     "saghen/blink.cmp",
   },
   config = function()
-
     local capabilities = require('blink.cmp').get_lsp_capabilities()
     local lsps = {
       "clangd",
@@ -28,9 +27,9 @@ return {
         }
       end
 
-    vim.lsp.config(lsp, config)
-    vim.lsp.enable(lsp)
-  end
+      vim.lsp.config(lsp, config)
+      vim.lsp.enable(lsp)
+    end
 
     vim.api.nvim_create_autocmd('LspAttach', {
       callback = function(ev)
@@ -41,6 +40,5 @@ return {
         end
       end,
     })
-
   end
 }
