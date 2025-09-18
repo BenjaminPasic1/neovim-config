@@ -13,11 +13,24 @@ return {
     }
 
     for _, lsp in ipairs(lsps) do
-      vim.lsp.config(lsp, {
-        capabilities = capabilities
-      })
-      vim.lsp.enable(lsp)
-    end
+      local config = {
+        capabilities = capabilities,
+      }
+
+      -- Extra settings just for lua_ls
+      if lsp == "lua_ls" then
+        config.settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" }, -- make `vim` recognized as a global
+            },
+          },
+        }
+      end
+
+    vim.lsp.config(lsp, config)
+    vim.lsp.enable(lsp)
+  end
 
     vim.api.nvim_create_autocmd('LspAttach', {
       callback = function(ev)
